@@ -11,7 +11,6 @@ const userSchema = new Schema({
     lowercase: true,
     trim: true,
   },
-
   age: {
     type: Number,
     required: true,

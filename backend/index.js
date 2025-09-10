@@ -1,10 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import express from 'express';
+import app from './app.js';
 import db_connect from './db/database.js';
-
-const app = express();
 
 
 db_connect() // return a promise (async function)

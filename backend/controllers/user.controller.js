@@ -23,6 +23,13 @@ const register = asyncHandler(async (req, res) => {
     throw new apiError(400, "User with this username or email already exists")
   }
 
+  const checkCNIC = await User.findOne({
+    cnicNumber
+  })
+  if (checkCNIC) {
+    throw new apiError(400, "User with this already registered")
+  }
+  
   const user = await User.create({
     fullName,
     username: username.toLowerCase(),
@@ -31,7 +38,6 @@ const register = asyncHandler(async (req, res) => {
     age,
     password,
     role: role || "voter"
-
   })
   const createdUser = await User.findById(user._id).select(
     "-password"
