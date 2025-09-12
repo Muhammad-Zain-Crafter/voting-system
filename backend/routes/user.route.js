@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register, login, getProfile } from "../controllers/user.controller.js";
+import { register, login, getProfile, logout, changePassword, updateAccountDetails } from "../controllers/user.controller.js";
 import multer from "multer";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { authorizeRoles } from "../middlewares/roles.middleware.js";
@@ -37,4 +37,15 @@ router.get("/voter-dashboard", verifyJWT, authorizeRoles("voter"), (req, res) =>
   });
 });
 
+router.route("/logout").get(
+  verifyJWT, logout
+)
+
+router.route("/change-password").post(
+  verifyJWT, changePassword
+)
+
+router.route("/update-account-details").patch(
+  verifyJWT, updateAccountDetails
+)
 export default router;

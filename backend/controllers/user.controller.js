@@ -124,8 +124,74 @@ const getProfile = asyncHandler(async (req, res) => {
   )
 })
 
+const logout = asyncHandler(async (req, res) => {
+  await User.findByIdAndUpdate(req.user._id), {
+    $set: {
+      refreshToken: undefined
+    }
+  }
+  const options = {
+    httpOnly: true,
+    secure: true
+  }
+  return res
+  .status(200)
+  .clearCookie("accessToken", options)
+  .clearCookie("refreshToken", options)
+  .json(
+    new ApiResponse(200, {}, "User logged out successfully")
+  )
+})
+
+const changePassword = asyncHandler(async (req, res) => {
+  const {oldPassword, newPassword} = req.body
+  if (!oldPassword || !newPassword) {
+    throw new ApiError(400, "Old and new passwords are required")
+  }
+  const user = await User.findById(req.user._id)
+  const checkPassowrd = await user.isPasswordCorrect(oldPassword)
+  if (!checkPassowrd) {
+    throw new ApiError(400, "Old password is incorrect")
+  }
+  user.password = newPassword
+  await user.save({ validateBeforeSave: false });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "password changed successfully"));
+})
+
+const updateAccountDetails = asyncHandler(async (req, res) => {
+  const { fullName, username, email, cnicNumber, age } = req.body;  
+  if (!(fullName || username || email || cnicNumber || age)) {
+    throw new ApiError(400, "All fields are required")
+  }
+  const user = await User.findByIdAndUpdate(req.user._id,
+    {
+      $set: {
+        fullName: fullName,
+        username: username,
+        email: email,
+        cnicNumber: cnicNumber,
+        age: age
+      }
+    },
+    {new: true}
+  ).select("-password")
+
+  if (!user) {
+    throw new ApiError(500, "Failed to update account details")
+  }
+  return res
+  .status(200)
+  .json(new ApiResponse(200, user, "Account details updated successfully"))
+})
+
 export {
     register,
     login,
-    getProfile
+    getProfile,
+    logout,
+    changePassword,
+    updateAccountDetails
 }
