@@ -18,5 +18,11 @@ app.use(express.urlencoded({ // encodeed data that comes from url
 app.use(cookieParser())
 
 import userRoute from './routes/user.route.js';
+import candidateRoute from './routes/candidate.route.js';
+
 app.use("/api/v1/users", userRoute)
+app.use("/api/v1/candidates", candidateRoute)
+
+
+
 export default app
