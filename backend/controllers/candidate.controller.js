@@ -4,7 +4,6 @@ import { ApiResponse } from "../utils/apiResponse.js";
 import { Candidate } from "../models/candidate.model.js";
 import { isValidObjectId } from "mongoose";
 
-
 const createCandidate = asyncHandler(async (req, res) => {
     const {name, party, age } = req.body
     if (!name) {
@@ -48,14 +47,56 @@ const updateCandidate = asyncHandler(async (req, res) => {
     const {name, party, age } = req.body
 
     if (!isValidObjectId(candidateId)) {
-        throw new ApiError()
+        throw new ApiError(400, "invalid candidate id")
     }
     if (!(name || party || age)) {
         throw new ApiError(400, "At least one field is required to update")
     }
-   
+
+    const candidate = await Candidate.findByIdAndUpdate(
+        candidateId,
+        {
+            $set: {
+                name: name,
+                party: party,
+                age: age
+            }
+        },
+        {new: true}
+    )
+    if (!candidate) {
+        throw new ApiError(404, "candidate not found")
+    }
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, candidate, "candidate updated successfully")
+    )
+
+    
+})
+
+const deleteCandidate = asyncHandler(async (req, res) => {
+    const { candidateId } = req.params
+    if (!isValidObjectId(candidateId)) {
+        throw new ApiError(400, "invalid candidate id")
+    }
+
+    const deletedCandidate = await Candidate.findByIdAndDelete(candidateId)
+
+    if (!deletedCandidate) {
+        throw new ApiError(404, "Candidate not found")
+    }
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(200, {}, "Candidate removed successfully")
+        )
 })
 
 export {
-    createCandidate
+    createCandidate,
+    updateCandidate,
+    deleteCandidate
 }
