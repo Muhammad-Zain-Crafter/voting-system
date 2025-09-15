@@ -95,8 +95,62 @@ const deleteCandidate = asyncHandler(async (req, res) => {
         )
 })
 
+const getAllCandidates = asyncHandler(async (req, res) => {
+    const candidate = await Candidate.find().select("name party age")
+    return res
+    .status(200)
+    .json(new ApiResponse(
+        200, candidate, "List of candidates"
+    ))
+})
+
+const voteForCandidate =  asyncHandler(async (req, res) => {
+    const { candidateId } = req.params
+    if (!isValidObjectId(candidateId)) {
+        throw new ApiError(400, "invalid candidate id")
+    }
+
+    const candidate = await Candidate.findById(candidateId)
+    if (!candidate) {
+        throw new ApiError(404, "candidate not found")
+    }
+
+    const alreadyVoted = candidate.votes.find(
+        (v) => v.user.toString() === req.user._id.toString()
+    )
+    if (alreadyVoted) {
+        throw new ApiError(400, "You have already voted for this candidate");
+    }
+
+    candidate.votes.push({
+        user: req.user._id
+    })
+    candidate.voteCount += 1 // candidate.voteCount = candidate.votes.length
+    await candidate.save()
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, candidate, "Vote submitted successfully"));
+})
+
+const votesCount = asyncHandler(async (req, res) => {
+  const candidates = await Candidate.find().select("name party voteCount");
+
+  if (!candidates || candidates.length === 0) {
+    throw new ApiError(404, "No candidates found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, candidates, "Vote counts fetched successfully"));
+});
+
+
 export {
     createCandidate,
     updateCandidate,
-    deleteCandidate
+    deleteCandidate,
+    getAllCandidates,
+    voteForCandidate,
+    votesCount
 }
