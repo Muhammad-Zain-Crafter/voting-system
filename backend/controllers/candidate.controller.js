@@ -145,7 +145,6 @@ const votesCount = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, candidates, "Vote counts fetched successfully"));
 });
 
-
 export {
     createCandidate,
     updateCandidate,
