@@ -3,7 +3,7 @@ import logo from "../assets/Logo.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-800 text-white py-12 mt-16">
+    <footer className="bg-black text-white py-12">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* Brand / Logo */}
         <div>
@@ -67,9 +67,11 @@ const Footer = () => {
       </div>
 
      {/* Bottom Bar */}
-<div className="border-t border-blue-400 text-center py-4 text-xl text-white font-bold h-[65px]">
-  © {new Date().getFullYear()} Online Voting System. All rights reserved.
+<div className="border border-white text-center text-xl text-white font-semibold h-[40px] mt-8 flex items-center justify-center">
+  <p className="m-0">© {new Date().getFullYear()} Online Voting System. All rights reserved.</p>
 </div>
+
+
 
 
     </footer>

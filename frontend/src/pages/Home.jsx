@@ -13,8 +13,10 @@ import {
   Globe,
   Activity,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate()
   const steps = [
     {
       icon: <UserPlus className="w-10 h-10 text-blue-600" />,
@@ -84,7 +86,7 @@ const Home = () => {
 
   return (
     <div>
-      <section className="bg-gradient-to-r from-blue-500 to-blue-300 text-white">
+      <section className="bg-gradient-to-r from-blue-500 to-blue-400 text-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 grid md:grid-cols-2 gap-10 items-center">
           {/* Left Content */}
           <div className="space-y-6 mb-6 md:ml-4 text-center md:text-left">
@@ -98,9 +100,9 @@ const Home = () => {
               anywhere with trust and transparency.
             </p>
 
-            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <button className="px-6 py-3 rounded-lg bg-yellow-400 text-blue-900 font-semibold hover:bg-yellow-300 transition">
+              <button onClick={() => navigate('/login')}
+              className="px-6 py-3 rounded-lg bg-yellow-400 text-blue-900 font-semibold hover:bg-yellow-300 transition">
                 Login to Vote
               </button>
               <button className="px-6 py-3 rounded-lg border border-white font-semibold hover:bg-white hover:text-blue-600 transition">
@@ -120,8 +122,8 @@ const Home = () => {
         </div>
       </section>
       <section className="py-20 bg-gray-100">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-gray-800 mb-12">
+        <div className="max-w-6xl mx-auto px-6 text-center py-2">
+          <h2 className="text-4xl font-bold text-gray-800 mb-16">
             How It <span className="text-blue-600">Works</span>
           </h2>
 
@@ -175,11 +177,11 @@ const Home = () => {
         </div>
       </section>
       <section className="py-20 bg-gray-100">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+        <div className="max-w-6xl mx-auto px-6 py-2 text-center">
           <h2 className="text-4xl font-bold text-gray-800 mb-12">
             Why Choose <span className="text-blue-600">Our System</span>
           </h2>
-
+            <br/>
           {/* Timeline style layout */}
           <div className="flex flex-col md:flex-row items-center justify-between relative">
             {benefits.map((benefit, index) => (

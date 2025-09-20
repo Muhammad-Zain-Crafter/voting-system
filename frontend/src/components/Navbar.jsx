@@ -17,7 +17,7 @@ const Navbar = () => {
 
   const linkClass = ({ isActive }) =>
     `px-3 py-2 rounded-md text-sm font-medium transition ${
-      isActive ? "bg-white text-blue-600" : "text-white hover:bg-blue-500"
+      isActive ? "bg-white text-black" : "text-white hover:bg-blue-500"
     }`;
 
   return (
@@ -93,7 +93,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-blue-700 px-4 py-3 space-y-2 animate-slideDown">
+        <div className="md:hidden bg-black px-4 py-3 flex flex-col space-y-2 animate-slideDown">
           <NavLink to="/" className={linkClass}>
             Home
           </NavLink>
@@ -111,7 +111,7 @@ const Navbar = () => {
           )}
           {userRole === "voter" && (
             <NavLink to="/voter-dashboard" className={linkClass}>
-              Dashboard
+              Voter
             </NavLink>
           )}
 

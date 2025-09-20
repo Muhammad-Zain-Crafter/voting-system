@@ -8,7 +8,7 @@ const router = Router();
 const upload = multer(); // for parsing multipart/form-data
 
 router.route("/register").post(
-    upload.none(), register
+   register
 )
 
 router.route("/login").post(
