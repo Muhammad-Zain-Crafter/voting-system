@@ -2,7 +2,7 @@ import {Router} from 'express';
 import multer from 'multer';
 import { verifyJWT } from '../middlewares/auth.middleware.js';
 import { authorizeRoles } from '../middlewares/roles.middleware.js';
-import { createCandidate, deleteCandidate, getAllCandidates, updateCandidate, voteForCandidate, votesCount } from '../controllers/candidate.controller.js';
+import { createCandidate, deleteCandidate, getAllCandidates, getCandidateById, updateCandidate, voteForCandidate, votesCount } from '../controllers/candidate.controller.js';
 
 const router = Router();
 const upload = multer(); 
@@ -10,6 +10,9 @@ const upload = multer();
 router.route("/c").get(
     getAllCandidates 
 )
+router.route("/:candidateId").get(
+    getCandidateById
+);
 router.route("/create-candidate").post(
     verifyJWT, authorizeRoles("admin"), upload.none(), createCandidate
 )

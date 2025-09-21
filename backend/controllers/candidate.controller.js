@@ -104,6 +104,24 @@ const getAllCandidates = asyncHandler(async (req, res) => {
     ))
 })
 
+const getCandidateById = asyncHandler(async (req, res) => {
+  const { candidateId } = req.params;
+
+  // Validate candidate id
+  if (!isValidObjectId(candidateId)) {
+    throw new ApiError(400, "Invalid candidate id");
+  }
+
+  const candidate = await Candidate.findById(candidateId);
+  if (!candidate) {
+    throw new ApiError(404, "Candidate not found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, candidate, "Candidate fetched successfully"));
+});
+
 const voteForCandidate =  asyncHandler(async (req, res) => {
     const { candidateId } = req.params
     if (!isValidObjectId(candidateId)) {
@@ -125,7 +143,7 @@ const voteForCandidate =  asyncHandler(async (req, res) => {
     candidate.votes.push({
         user: req.user._id
     })
-    candidate.voteCount += 1 // candidate.voteCount = candidate.votes.length
+    candidate.voteCount = candidate.votes.length
     await candidate.save()
 
     return res
@@ -151,5 +169,6 @@ export {
     deleteCandidate,
     getAllCandidates,
     voteForCandidate,
+    getCandidateById,
     votesCount
 }
