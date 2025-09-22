@@ -10,7 +10,7 @@ const upload = multer();
 router.route("/c").get(
     getAllCandidates 
 )
-router.route("/:candidateId").get(
+router.route("/c/:candidateId").get(
     getCandidateById
 );
 router.route("/create-candidate").post(

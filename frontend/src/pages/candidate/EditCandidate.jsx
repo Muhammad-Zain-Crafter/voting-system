@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const EditCandidate = () => {
-  const { id } = useParams();
+  const { candidateId  } = useParams();
   const navigate = useNavigate();
 
   const [candidate, setCandidate] = useState({
@@ -18,7 +18,7 @@ const EditCandidate = () => {
   useEffect(() => {
     const fetchCandidate = async () => {
       try {
-        const res = await axios.get(`/api/v1/candidates/${id}`);
+        const res = await axios.get(`/api/v1/candidates/c/${candidateId }`);
         setCandidate(res.data.data);
       } catch (err) {
         console.error("Error fetching candidate", err);
@@ -28,7 +28,7 @@ const EditCandidate = () => {
       }
     };
     fetchCandidate();
-  }, [id]);
+  }, [candidateId ]);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -39,7 +39,7 @@ const EditCandidate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`/api/v1/candidates/c/${id}`, candidate);
+      await axios.patch(`/api/v1/candidates/c/${candidateId }`, candidate);
       setMessage("Candidate updated successfully!");
       setTimeout(() => navigate("/admin/candidates"), 1500); // redirect back after success
     } catch (err) {

@@ -31,6 +31,7 @@ const Login = () => {
 
       if (res.data?.data?.accessToken) {
         localStorage.setItem("token", res.data.data.accessToken);
+        localStorage.setItem("role", res.data.data.user.role);
       }
 
       if (res.data?.data?.user?.role === "admin") {

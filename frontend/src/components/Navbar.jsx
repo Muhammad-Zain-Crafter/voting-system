@@ -7,7 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  const userRole = localStorage.getItem("role"); // save role at login
+  const userRole = localStorage.getItem("role"); // saved at login
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -37,23 +37,17 @@ const Navbar = () => {
             <NavLink to="/" className={linkClass}>
               Home
             </NavLink>
-            <NavLink to="/candidates" className={linkClass}>
-              Candidates
-            </NavLink>
+
+            {/* ✅ Only admin sees Candidates */}
+            {userRole === "admin" && (
+              <NavLink to="/admin/candidates" className={linkClass}>
+                Candidates
+              </NavLink>
+            )}
+
             <NavLink to="/results" className={linkClass}>
               Results
             </NavLink>
-
-            {userRole === "admin" && (
-              <NavLink to="/admin-dashboard" className={linkClass}>
-                Admin
-              </NavLink>
-            )}
-            {userRole === "voter" && (
-              <NavLink to="/voter-dashboard" className={linkClass}>
-                Dashboard
-              </NavLink>
-            )}
 
             {!token ? (
               <>
@@ -97,23 +91,17 @@ const Navbar = () => {
           <NavLink to="/" className={linkClass}>
             Home
           </NavLink>
-          <NavLink to="/candidates" className={linkClass}>
-            Candidates
-          </NavLink>
+
+          {/* ✅ Only admin sees Candidates */}
+          {userRole === "admin" && (
+            <NavLink to="/admin/candidates" className={linkClass}>
+              Candidates
+            </NavLink>
+          )}
+
           <NavLink to="/results" className={linkClass}>
             Results
           </NavLink>
-
-          {userRole === "admin" && (
-            <NavLink to="/admin-dashboard" className={linkClass}>
-              Admin
-            </NavLink>
-          )}
-          {userRole === "voter" && (
-            <NavLink to="/voter-dashboard" className={linkClass}>
-              Voter
-            </NavLink>
-          )}
 
           {!token ? (
             <>

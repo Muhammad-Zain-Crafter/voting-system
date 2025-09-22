@@ -39,7 +39,6 @@ const Home = () => {
       desc: "See real-time election results with full transparency.",
     },
   ];
-
   const features = [
     {
       icon: <Lock className="w-8 h-8 text-blue-600" />,
@@ -102,10 +101,11 @@ const Home = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <button onClick={() => navigate('/login')}
-              className="px-6 py-3 rounded-lg bg-yellow-400 text-blue-900 font-semibold hover:bg-yellow-300 transition">
+              className="px-6 py-3 rounded-lg bg-yellow-400 text-blue-900 font-bold hover:bg-yellow-300 transition">
                 Login to Vote
               </button>
-              <button className="px-6 py-3 rounded-lg border border-white font-semibold hover:bg-white hover:text-blue-600 transition">
+              <button onClick={() => navigate('/results')}
+              className="px-6 py-3 rounded-lg border border-white font-bold hover:bg-white hover:text-blue-600 transition">
                 View Results
               </button>
             </div>
@@ -116,7 +116,7 @@ const Home = () => {
             <img
               src={hero}
               alt="Voting Illustration"
-              className="w-full max-w-md drop-shadow-2xl h-120"
+              className="w-[450px] max-w-md drop-shadow-2xl h-130"
             />
           </div>
         </div>

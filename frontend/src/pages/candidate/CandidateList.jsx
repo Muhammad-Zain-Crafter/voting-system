@@ -7,11 +7,11 @@ const CandidateList = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch candidates
+  // Fetch candidates with vote counts
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
-        const res = await axios.get("/api/v1/candidates/c"); 
+        const res = await axios.get("/api/v1/candidates/vote/count"); 
         setCandidates(res.data.data || []);
       } catch (err) {
         console.error("Error fetching candidates", err);
@@ -23,12 +23,12 @@ const CandidateList = () => {
   }, []);
 
   // Delete candidate
-  const handleDelete = async (id) => {
+  const handleDelete = async (candidateId) => {
     if (!window.confirm("Are you sure you want to delete this candidate?")) return;
 
     try {
-      await axios.delete(`/api/v1/candidates/${id}`);
-      setCandidates(candidates.filter((c) => c._id !== id));
+      await axios.delete(`/api/v1/candidates/c/${candidateId}`);
+      setCandidates(candidates.filter((c) => c._id !== candidateId));
     } catch (err) {
       console.error("Error deleting candidate", err);
       alert("Failed to delete candidate.");
