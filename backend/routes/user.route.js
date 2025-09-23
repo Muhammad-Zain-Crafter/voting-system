@@ -5,7 +5,6 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { authorizeRoles } from "../middlewares/roles.middleware.js";
 
 const router = Router();
-const upload = multer(); // for parsing multipart/form-data
 
 router.route("/register").post(
    register
