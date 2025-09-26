@@ -7,7 +7,8 @@ const VoterDashboard = () => {
   const [profile, setProfile] = useState(null);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [votedCandidate, setVotedCandidate] = useState(null); // NEW
+  const [votedCandidate, setVotedCandidate] = useState(null);
+  const [isVotingOpen, setIsVotingOpen] = useState(false); // 👈 new
 
   // Fetch profile
   useEffect(() => {
@@ -19,7 +20,6 @@ const VoterDashboard = () => {
         });
         setProfile(res.data.data);
 
-        // 👇 if backend sends votedFor field
         if (res.data.data.votedFor) {
           setVotedCandidate(res.data.data.votedFor);
         }
@@ -45,8 +45,27 @@ const VoterDashboard = () => {
     fetchCandidates();
   }, []);
 
+  // Fetch voting status
+  useEffect(() => {
+    const fetchVotingStatus = async () => {
+      try {
+        const res = await axios.get("/api/v1/voting-status/status");
+        setIsVotingOpen(res.data.data.isVotingOpen);
+      } catch (err) {
+        console.error(err);
+        setMessage("Failed to load voting status");
+      }
+    };
+    fetchVotingStatus();
+  }, []);
+
   // Handle voting
   const handleVote = async (candidateId) => {
+    if (!isVotingOpen) {
+      setMessage("Voting is closed! You cannot vote right now.");
+      return;
+    }
+
     if (votedCandidate) {
       setMessage("You have already voted!");
       return;
@@ -62,7 +81,7 @@ const VoterDashboard = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setMessage("Vote cast successfully!");
-      setVotedCandidate(candidateId); // ✅ mark as voted
+      setVotedCandidate(candidateId);
     } catch (err) {
       setMessage(err.response?.data?.message || "Failed to cast vote");
     } finally {
@@ -78,9 +97,7 @@ const VoterDashboard = () => {
         </h2>
 
         {message && (
-          <p className="text-center mb-4 font-semibold text-black">
-            {message}
-          </p>
+          <p className="text-center mb-4 font-semibold text-black">{message}</p>
         )}
 
         {/* Profile Section */}
@@ -98,7 +115,7 @@ const VoterDashboard = () => {
                 </p>
                 {votedCandidate && (
                   <p className="text-sm text-green-600 font-semibold">
-                    ✅ You have already voted.
+                    You have already voted.
                   </p>
                 )}
               </div>
@@ -142,15 +159,20 @@ const VoterDashboard = () => {
                   onClick={() => handleVote(candidate._id)}
                   disabled={
                     loading ||
+                    !isVotingOpen ||
                     (votedCandidate && votedCandidate !== candidate._id)
                   }
                   className={`w-full mt-4 py-2 rounded-lg text-white ${
-                    votedCandidate === candidate._id
+                    !isVotingOpen
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : votedCandidate === candidate._id
                       ? "bg-green-600 cursor-not-allowed"
                       : "bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
                   }`}
                 >
-                  {votedCandidate === candidate._id
+                  {!isVotingOpen
+                    ? "Voting Closed"
+                    : votedCandidate === candidate._id
                     ? "Voted"
                     : loading
                     ? "Voting..."

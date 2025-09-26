@@ -45,6 +45,13 @@ const Navbar = () => {
               </NavLink>
             )}
 
+            {/* ✅ Both admin and voter see Voting Status */}
+            {(userRole === "admin" || userRole === "voter") && (
+              <NavLink to="/voting-status" className={linkClass}>
+                Voting Status
+              </NavLink>
+            )}
+
             <NavLink to="/results" className={linkClass}>
               Results
             </NavLink>
@@ -96,6 +103,13 @@ const Navbar = () => {
           {userRole === "admin" && (
             <NavLink to="/admin/candidates" className={linkClass}>
               Candidates
+            </NavLink>
+          )}
+
+          {/* ✅ Both admin and voter see Voting Status */}
+          {(userRole === "admin" || userRole === "voter") && (
+            <NavLink to="/voting-status" className={linkClass}>
+              Voting Status
             </NavLink>
           )}
 

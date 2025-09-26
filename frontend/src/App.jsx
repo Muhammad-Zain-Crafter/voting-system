@@ -13,6 +13,7 @@ import AdminDashboard from "./pages/dashboard/AdminDashboard";
 import EditCandidate from "./pages/candidate/EditCandidate";
 import CreateCandidate from "./pages/candidate/CreateCandidate";
 import ReadCandidates from "./pages/candidate/ReadCandidates";
+import VotingStatus from "./pages/voting/VotingStatus";
 function App() {
   const router = createBrowserRouter([
     {
@@ -79,6 +80,16 @@ function App() {
         <div>
           <Navbar />
           <Results />
+          <Footer />
+        </div>
+      ),
+    },
+    {
+       path: "/voting-status",
+      element: (
+        <div>
+          <Navbar />
+          <VotingStatus/>
           <Footer />
         </div>
       ),

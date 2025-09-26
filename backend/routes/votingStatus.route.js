@@ -3,7 +3,6 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { authorizeRoles } from "../middlewares/roles.middleware.js";
 import { openVoting, closeVoting, getVotingStatus } from "../controllers/votingStatus.controller.js";
 
-
 const router = Router()
 
 router.route("/open").post(

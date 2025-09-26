@@ -16,7 +16,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const steps = [
     {
       icon: <UserPlus className="w-10 h-10 text-blue-600" />,
@@ -100,12 +100,16 @@ const Home = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <button onClick={() => navigate('/login')}
-              className="px-6 py-3 rounded-lg bg-yellow-400 text-blue-900 font-bold hover:bg-yellow-300 transition">
+              <button
+                onClick={() => navigate("/login")}
+                className="px-6 py-3 rounded-lg bg-yellow-400 text-blue-900 font-bold hover:bg-yellow-300 transition"
+              >
                 Login to Vote
               </button>
-              <button onClick={() => navigate('/results')}
-              className="px-6 py-3 rounded-lg border border-white font-bold hover:bg-white hover:text-blue-600 transition">
+              <button
+                onClick={() => navigate("/results")}
+                className="px-6 py-3 rounded-lg border border-white font-bold hover:bg-white hover:text-blue-600 transition"
+              >
                 View Results
               </button>
             </div>
@@ -116,7 +120,7 @@ const Home = () => {
             <img
               src={hero}
               alt="Voting Illustration"
-              className="w-[450px] max-w-md drop-shadow-2xl h-130"
+              className="w-[450px] max-w-xs sm:max-w-md drop-shadow-2xl"
             />
           </div>
         </div>
@@ -181,7 +185,7 @@ const Home = () => {
           <h2 className="text-4xl font-bold text-gray-800 mb-12">
             Why Choose <span className="text-blue-600">Our System</span>
           </h2>
-            <br/>
+          <br />
           {/* Timeline style layout */}
           <div className="flex flex-col md:flex-row items-center justify-between relative">
             {benefits.map((benefit, index) => (
