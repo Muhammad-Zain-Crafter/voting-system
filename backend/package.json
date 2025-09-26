@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js",
-    "vercel-build": "echo 'no build required'"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "Zain",
