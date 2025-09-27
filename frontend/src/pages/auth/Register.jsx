@@ -27,7 +27,7 @@ const Register = () => {
       await axios.post("/api/v1/users/register", formData, {
         headers: { "Content-Type": "application/json" },
       });
-      navigate("/login"); // redirect to login page after success
+      navigate("/login"); 
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
     }

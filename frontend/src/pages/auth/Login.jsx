@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    identifier: "", // can be username OR email
+    identifier: "", // username OR email
     password: "",
   });
   const [error, setError] = useState("");

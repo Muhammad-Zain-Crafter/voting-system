@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -85,11 +84,11 @@ function App() {
       ),
     },
     {
-       path: "/voting-status",
+      path: "/voting-status",
       element: (
         <div>
           <Navbar />
-          <VotingStatus/>
+          <VotingStatus />
           <Footer />
         </div>
       ),
@@ -99,7 +98,7 @@ function App() {
       element: (
         <div>
           <Navbar />
-          <ReadCandidates/>
+          <ReadCandidates />
           <Footer />
         </div>
       ),
@@ -109,7 +108,7 @@ function App() {
       element: (
         <div>
           <Navbar />
-          <CreateCandidate/>
+          <CreateCandidate />
           <Footer />
         </div>
       ),

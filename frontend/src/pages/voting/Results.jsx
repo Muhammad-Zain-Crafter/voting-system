@@ -25,10 +25,7 @@ const Results = () => {
   }, []);
 
   // calculate total votes
-  const totalVotes = candidates.reduce(
-    (sum, c) => sum + (c.voteCount || 0),
-    0
-  );
+  const totalVotes = candidates.reduce((sum, c) => sum + (c.voteCount || 0), 0);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-500 to-indigo-400 p-6">

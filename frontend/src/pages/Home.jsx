@@ -14,6 +14,7 @@ import {
   Activity,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -88,7 +89,12 @@ const Home = () => {
       <section className="bg-gradient-to-r from-blue-500 to-blue-400 text-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 grid md:grid-cols-2 gap-10 items-center">
           {/* Left Content */}
-          <div className="space-y-6 mb-6 md:ml-4 text-center md:text-left">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 2 }}
+            className="space-y-6 mb-6 md:ml-4 text-center md:text-left"
+          >
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
               Your <span className="text-yellow-400">Voice</span>,<br />
               Your <span className="text-yellow-400">Choice</span>,<br />
@@ -100,29 +106,38 @@ const Home = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => navigate("/login")}
                 className="px-6 py-3 rounded-lg bg-yellow-400 text-blue-900 font-bold hover:bg-yellow-300 transition"
               >
                 Login to Vote
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => navigate("/results")}
                 className="px-6 py-3 rounded-lg border border-white font-bold hover:bg-white hover:text-blue-600 transition"
               >
                 View Results
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Image */}
-          <div className="flex justify-center md:justify-end ">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="flex justify-center md:justify-end"
+          >
             <img
               src={hero}
               alt="Voting Illustration"
               className="w-[450px] max-w-xs sm:max-w-md drop-shadow-2xl"
             />
-          </div>
+          </motion.div>
         </div>
       </section>
       <section className="py-20 bg-gray-100">
@@ -130,7 +145,6 @@ const Home = () => {
           <h2 className="text-4xl font-bold text-gray-800 mb-16">
             How It <span className="text-blue-600">Works</span>
           </h2>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, index) => (
               <div
@@ -149,7 +163,6 @@ const Home = () => {
       </section>
       <section className="py-20 bg-gradient-to-r from-blue-50 to-blue-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid md:grid-cols-2 gap-12 items-center">
-          {/* Left Side - Text */}
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
               🔒 Security & <span className="text-blue-600">Trust</span>
@@ -162,7 +175,6 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Right Side - Features */}
           <div className="space-y-6">
             {features.map((feature, index) => (
               <div key={index} className="flex items-start gap-4">
@@ -186,21 +198,19 @@ const Home = () => {
             Why Choose <span className="text-blue-600">Our System</span>
           </h2>
           <br />
-          {/* Timeline style layout */}
+          {/* Timeline layout */}
           <div className="flex flex-col md:flex-row items-center justify-between relative">
             {benefits.map((benefit, index) => (
               <div
                 key={index}
                 className="flex-1 flex flex-col items-center text-center px-4 mb-12 md:mb-0"
               >
-                {/* Circle Icon */}
                 <div
                   className={`${benefit.color} w-16 h-16 flex items-center justify-center rounded-full shadow-lg mb-4`}
                 >
                   {benefit.icon}
                 </div>
 
-                {/* Title + Desc */}
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   {benefit.title}
                 </h3>
@@ -208,7 +218,6 @@ const Home = () => {
                   {benefit.desc}
                 </p>
 
-                {/* Connecting Line (only between items) */}
                 {index !== benefits.length - 1 && (
                   <div className="hidden md:block absolute top-8 left-0 right-0 mx-auto w-full h-1 bg-gray-300 -z-10"></div>
                 )}

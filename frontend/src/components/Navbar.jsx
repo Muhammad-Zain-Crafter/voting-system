@@ -7,7 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  const userRole = localStorage.getItem("role"); // saved at login
+  const userRole = localStorage.getItem("role"); 
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -38,14 +38,14 @@ const Navbar = () => {
               Home
             </NavLink>
 
-            {/* ✅ Only admin sees Candidates */}
+            {/* Only admin sees Candidates */}
             {userRole === "admin" && (
               <NavLink to="/admin/candidates" className={linkClass}>
                 Candidates
               </NavLink>
             )}
 
-            {/* ✅ Both admin and voter see Voting Status */}
+            {/* Both admin and voter see Voting Status */}
             {(userRole === "admin" || userRole === "voter") && (
               <NavLink to="/voting-status" className={linkClass}>
                 Voting Status
@@ -99,14 +99,14 @@ const Navbar = () => {
             Home
           </NavLink>
 
-          {/* ✅ Only admin sees Candidates */}
+          {/* Only admin sees Candidates */}
           {userRole === "admin" && (
             <NavLink to="/admin/candidates" className={linkClass}>
               Candidates
             </NavLink>
           )}
 
-          {/* ✅ Both admin and voter see Voting Status */}
+          {/* Both admin and voter see Voting Status */}
           {(userRole === "admin" || userRole === "voter") && (
             <NavLink to="/voting-status" className={linkClass}>
               Voting Status
