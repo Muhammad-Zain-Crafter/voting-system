@@ -61,7 +61,6 @@ const register = asyncHandler(async (req, res) => {
   if (!createdUser) {
     throw new ApiError(500, "User creation failed");
   }
-  console.log("Incoming register body:", req.body);
 
   return res
   .status(201)
