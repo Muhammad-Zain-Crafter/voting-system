@@ -15,7 +15,7 @@ db_connect()
         console.log(`Server running locally on port ${PORT}`);
       });
     } else {
-      // 🔹 If running on Vercel (production), export app for serverless
+      // If running on Vercel (production), export app for serverless
       console.log("MongoDB connected (Serverless mode on Vercel)");
     }
   })
