@@ -6,7 +6,6 @@ import db_connect from '../db/database.js';
 
 const PORT = process.env.PORT || 8000;
 
-// Connect to MongoDB 
 db_connect()
   .then(() => {
     // If running locally (development), start normal Express server
