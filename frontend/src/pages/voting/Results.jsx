@@ -10,8 +10,7 @@ const Results = () => {
     const fetchResults = async () => {
       setLoading(true);
       try {
-       const res = await axios.get("https://voting-app-server-vert.vercel.app/api/v1/candidates/vote/count");
-
+        const res = await axios.get("/api/v1/candidates/vote/count");
         const data = res.data.data || [];
         setCandidates(data);
       } catch (err) {
